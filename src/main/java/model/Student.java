@@ -2,9 +2,11 @@ package model;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 
 @XmlRootElement
-public class Student {
+public class Student implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private int id;
     private String name;
@@ -34,6 +36,14 @@ public class Student {
 
     public int getId() {
         return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getGroup() {
+        return group;
     }
 
     @Override

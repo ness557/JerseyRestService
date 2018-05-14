@@ -12,7 +12,7 @@ import javax.ws.rs.core.MediaType;
 @Path("/studentslocal")
 public class StudentRestService {
 
-    StudentStore studentStore = new StudentStoreLocal();
+    private StudentStore studentStore = new StudentStoreLocal();
 
     @GET
     @Path("/students")
@@ -32,9 +32,9 @@ public class StudentRestService {
 
     @GET
     @Path("/students/{studentid}")
-    public Student getStudent(@PathParam("studentid") int id){
+    public String getStudent(@PathParam("studentid") int id){
 
-        return studentStore.getStudent(id);
+        return studentStore.getStudent(id).toString();
     }
 
     @PUT
@@ -56,6 +56,17 @@ public class StudentRestService {
         return String.valueOf(
                 studentStore.deleteStudent(studid)
         );
+    }
+
+    @POST
+    @Path("/students/{id}/{name}/{group}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String updateStudent(@PathParam("id") int id,
+                                @PathParam("name") String name,
+                                @PathParam("group") String group){
+
+        return String.valueOf(
+                studentStore.updateStudent(new Student(id, name, group)));
     }
 
 
