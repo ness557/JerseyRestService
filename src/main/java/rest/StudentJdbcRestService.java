@@ -13,12 +13,21 @@ import javax.ws.rs.core.MediaType;
 @Path("/jdbc")
 public class StudentJdbcRestService {
 
-    private StudentRepository repository = new StudentJdbcRepository();
+
+    private StudentRepository repository;
+
+    public StudentJdbcRestService(){
+
+        ClassLoader loader = getClass().getClassLoader();
+        String path = loader.getResource("db.properties").getFile();
+        repository = new StudentJdbcRepository(path);
+    }
 
     @GET
     @Path("/students")
     @Produces(MediaType.APPLICATION_JSON)
     public String getStudents(){
+
 
         String res = null;
         ObjectMapper mapper = new ObjectMapper();

@@ -11,9 +11,9 @@ public class StudentJdbcRepository implements StudentRepository{
 
     private JdbcConnector connector;
 
-    public StudentJdbcRepository(){
+    public StudentJdbcRepository(String propertiesFilePath){
 
-        connector = new JdbcConnector();
+        connector = new JdbcConnector(propertiesFilePath);
     }
 
     @Override

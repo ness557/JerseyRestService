@@ -15,17 +15,14 @@ public class JdbcConnector {
     private Properties properties;
     private Connection connection;
 
-    public JdbcConnector() {
+    public JdbcConnector(String propertiesFilePath) {
 
         try {
             Properties readedProperties = new Properties();
-            ClassLoader loader = getClass().getClassLoader();
-
-            String path = loader.getResource("db.properties").getFile();
 
 
-            if (path != null) {
-                FileInputStream in = new FileInputStream(path);
+            if (propertiesFilePath != null) {
+                FileInputStream in = new FileInputStream(propertiesFilePath);
                 readedProperties.load(in);
                 in.close();
 
