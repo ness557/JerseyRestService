@@ -3,23 +3,25 @@ package rest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import model.Student;
-import model.StudentStore;
-import model.StudentStoreLocal;
 import repository.*;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.net.URL;
 
 @Path("/jdbc")
 public class StudentJdbcRestService {
-
 
     private StudentRepository repository;
 
     public StudentJdbcRestService(){
 
+        String path = null;
         ClassLoader loader = getClass().getClassLoader();
-        String path = loader.getResource("db.properties").getFile();
+        URL resource = loader.getResource("db.properties");
+        if(resource != null)
+            path = resource.getFile();
+
         repository = new StudentJdbcRepository(path);
     }
 
@@ -90,7 +92,4 @@ public class StudentJdbcRestService {
         return String.valueOf(
                 repository.updateStudent(new Student(id, name, group)));
     }
-
-
-
 }
