@@ -65,7 +65,7 @@ public class StudentJdbcRepository implements StudentRepository{
                 statement.executeUpdate();
 
                 statement.close();
-                connection.close();
+                connector.closeConnection();
                 return 1;
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -92,7 +92,7 @@ public class StudentJdbcRepository implements StudentRepository{
                 statement.executeUpdate();
 
                 statement.close();
-                connection.close();
+                connector.closeConnection();
                 return 1;
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -117,7 +117,7 @@ public class StudentJdbcRepository implements StudentRepository{
                 statement.executeUpdate();
 
                 statement.close();
-                connection.close();
+                connector.closeConnection();
                 return 1;
             } catch (SQLException e) {
                 e.printStackTrace();

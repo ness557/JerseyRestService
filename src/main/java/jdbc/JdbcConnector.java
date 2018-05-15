@@ -1,5 +1,6 @@
 package jdbc;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -18,19 +19,22 @@ public class JdbcConnector {
 
         try {
             Properties readedProperties = new Properties();
-//        FileInputStream in = getClass().getResourceAsStream("/db.properties");
             ClassLoader loader = getClass().getClassLoader();
 
-            FileInputStream in = new FileInputStream(loader.getResource("db.properties").getFile());
-            readedProperties.load(in);
-            in.close();
+            String path = loader.getResource("db.properties").getFile();
 
-            properties = new Properties();
-            url = readedProperties.getProperty("jdbc.url");
-            driver = readedProperties.getProperty("jdbc.driver");
-            properties.setProperty("user", readedProperties.getProperty("jdbc.username"));
-            properties.setProperty("password", readedProperties.getProperty("jdbc.password"));
 
+            if (path != null) {
+                FileInputStream in = new FileInputStream(path);
+                readedProperties.load(in);
+                in.close();
+
+                properties = new Properties();
+                url = readedProperties.getProperty("jdbc.url");
+                driver = readedProperties.getProperty("jdbc.driver");
+                properties.setProperty("user", readedProperties.getProperty("jdbc.username"));
+                properties.setProperty("password", readedProperties.getProperty("jdbc.password"));
+            }
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -41,9 +45,10 @@ public class JdbcConnector {
     public Connection getConnection() {
 
         try {
-            if (url != null && properties != null)
+            if (url != null && properties != null && driver != null) {
                 Class.forName(driver);
                 connection = DriverManager.getConnection(url, properties);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
