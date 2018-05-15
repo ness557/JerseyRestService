@@ -4,6 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import model.Student;
 import repository.*;
+import service.StudentService;
+import service.StudentServiceImpl;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -12,7 +14,7 @@ import java.net.URL;
 @Path("/jdbc")
 public class StudentJdbcRestService {
 
-    private StudentRepository repository;
+    private StudentService service;
 
     public StudentJdbcRestService(){
 
@@ -22,7 +24,7 @@ public class StudentJdbcRestService {
         if(resource != null)
             path = resource.getFile();
 
-        repository = new StudentJdbcRepository(path);
+        service = new StudentServiceImpl(new StudentJdbcRepository(path));
     }
 
     @GET
@@ -30,13 +32,11 @@ public class StudentJdbcRestService {
     @Produces(MediaType.APPLICATION_JSON)
     public String getStudents(){
 
-
         String res = null;
         ObjectMapper mapper = new ObjectMapper();
         try {
             res = mapper.writeValueAsString(
-                    repository.query(
-                            new StudentSpecificationAll()));
+                    service.getStudents());
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
@@ -49,13 +49,10 @@ public class StudentJdbcRestService {
     @Produces(MediaType.APPLICATION_JSON)
     public String getStudent(@PathParam("studentid") int id){
 
-        StudentSpecification specification = new StudentSpecificationById(id);
-
         String res = null;
         ObjectMapper mapper = new ObjectMapper();
         try {
-            res = mapper.writeValueAsString(
-                    repository.query(specification));
+            res = mapper.writeValueAsString(service.getStudentById(id));
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
@@ -70,7 +67,7 @@ public class StudentJdbcRestService {
                              @PathParam("name") String name,
                              @PathParam("group") String group){
         return String.valueOf(
-                repository.addStudent(new Student(studId, name, group)));
+                service.addStudent(new Student(studId, name, group)));
     }
 
     @DELETE
@@ -79,7 +76,7 @@ public class StudentJdbcRestService {
     public String removeStudent(@PathParam("studentid") int studid){
 
         return String.valueOf(
-                repository.removeStudent(studid));
+                service.removeStudent(studid));
     }
 
     @POST
@@ -90,6 +87,6 @@ public class StudentJdbcRestService {
                                 @PathParam("group") String group){
 
         return String.valueOf(
-                repository.updateStudent(new Student(id, name, group)));
+                service.updateStudent(new Student(id, name, group)));
     }
 }
