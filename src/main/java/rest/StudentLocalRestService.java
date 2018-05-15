@@ -9,7 +9,7 @@ import model.StudentStoreLocal;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
-@Path("/studentslocal")
+@Path("/local")
 public class StudentLocalRestService {
 
     private StudentStore studentStore = new StudentStoreLocal();

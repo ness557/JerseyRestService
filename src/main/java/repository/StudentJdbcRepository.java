@@ -59,8 +59,8 @@ public class StudentJdbcRepository implements StudentRepository{
                 PreparedStatement statement = connection.prepareStatement(updateQuery);
 
                 statement.setInt(3, student.getId());
-                statement.setString(2, student.getName());
-                statement.setString(1, student.getGroup());
+                statement.setString(1, student.getName());
+                statement.setString(2, student.getGroup());
 
                 statement.executeUpdate();
 

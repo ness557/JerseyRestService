@@ -10,6 +10,7 @@ import java.util.Properties;
 public class JdbcConnector {
 
     private String url;
+    private String driver;
     private Properties properties;
     private Connection connection;
 
@@ -26,6 +27,7 @@ public class JdbcConnector {
 
             properties = new Properties();
             url = readedProperties.getProperty("jdbc.url");
+            driver = readedProperties.getProperty("jdbc.driver");
             properties.setProperty("user", readedProperties.getProperty("jdbc.username"));
             properties.setProperty("password", readedProperties.getProperty("jdbc.password"));
 
@@ -40,8 +42,9 @@ public class JdbcConnector {
 
         try {
             if (url != null && properties != null)
+                Class.forName(driver);
                 connection = DriverManager.getConnection(url, properties);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return connection;
