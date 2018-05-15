@@ -9,6 +9,7 @@ public interface StudentRepository {
     int addStudent(Student student);
     int updateStudent(Student student);
     int removeStudent(Student student);
+    int removeStudent(int id);
 
     List<Student> query(StudentSpecification specification);
 }

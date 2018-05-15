@@ -6,7 +6,7 @@ public class StudentSpecificationAll implements StudentSpecification, StudentJdb
 
     @Override
     public String toSql() {
-        return "SELECT * FROM students";
+        return "";
     }
 
     @Override

@@ -102,8 +102,33 @@ public class StudentJdbcRepository implements StudentRepository{
         return 0;
     }
 
+    public int removeStudent(int id){
+
+        String deleteQuery = "DELETE FROM students WHERE id = ?";
+        Connection connection = connector.getConnection();
+
+        if(connection != null){
+
+            try {
+                PreparedStatement statement = connection.prepareStatement(deleteQuery);
+
+                statement.setInt(1, id);
+
+                statement.executeUpdate();
+
+                statement.close();
+                connection.close();
+                return 1;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return 0;
+        }
+        return 0;
+    }
+
     @Override
-    public List query(StudentSpecification specification) {
+    public List<Student> query(StudentSpecification specification) {
         Connection connection = connector.getConnection();
 
         List<Student> students = new LinkedList<>();
@@ -113,7 +138,7 @@ public class StudentJdbcRepository implements StudentRepository{
 
             try {
                 Statement statement = connection.createStatement();
-                ResultSet rs = statement.executeQuery(jdbcSpecification.toSql());
+                ResultSet rs = statement.executeQuery("SELECT * FROM students " + jdbcSpecification.toSql());
 
                 while (rs.next()){
                     students.add(new Student(
@@ -131,4 +156,6 @@ public class StudentJdbcRepository implements StudentRepository{
         }
         return students;
     }
+
+
 }
