@@ -72,10 +72,23 @@
             <artifactId>log4j</artifactId>
             <version>1.2.16</version>
         </dependency>
+
+        <!-- Hibernate 5.2.12 Final -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>5.0.12.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.javassist</groupId>
+            <artifactId>javassist</artifactId>
+            <version>3.18.0-GA</version>
+        </dependency>
+
     </dependencies>
 
     <build>
-        <finalName>JerseyDemos</finalName>
+        <finalName>MyJerseyRestService</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -90,6 +103,7 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.2.1</version>
                 <configuration>
+                    <webXml>web.xml</webXml>
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>

@@ -1,15 +1,25 @@
 package model;
 
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
+import java.util.Objects;
 
 @XmlRootElement
+@Entity
+@Table(name = "students")
 public class Student implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "groupp")
     private String group;
 
     public Student() {
@@ -53,5 +63,15 @@ public class Student implements Serializable {
                 ", name='" + name + '\'' +
                 ", group='" + group + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return id == student.id &&
+                Objects.equals(name, student.name) &&
+                Objects.equals(group, student.group);
     }
 }
