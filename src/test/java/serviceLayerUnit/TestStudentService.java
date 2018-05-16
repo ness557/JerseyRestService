@@ -5,7 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import repository.StudentJdbcRepository;
+import repository.StudentHibernateRepository;
 import repository.StudentSpecification;
 import repository.StudentSpecificationAll;
 import repository.StudentSpecificationById;
@@ -23,7 +23,7 @@ import static org.mockito.Mockito.when;
 public class TestStudentService {
 
     @Mock
-    private StudentJdbcRepository repository;
+    private StudentHibernateRepository repository;
 
     private StudentServiceImpl service;
     private Student student;
