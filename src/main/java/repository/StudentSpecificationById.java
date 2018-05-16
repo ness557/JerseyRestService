@@ -20,4 +20,11 @@ public class StudentSpecificationById implements StudentSpecification, StudentJd
     public boolean specified(Student student) {
         return student.getId() == id;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        return  (obj instanceof StudentSpecificationById && ((StudentSpecificationById) obj).id == this.id);
+
+    }
 }
