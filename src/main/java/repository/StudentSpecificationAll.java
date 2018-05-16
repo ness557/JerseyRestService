@@ -4,12 +4,7 @@ import model.Student;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 
-public class StudentSpecificationAll implements StudentSpecification, StudentJdbcSpecification, StudentHibernateSpecification {
-
-    @Override
-    public String toSql() {
-        return "";
-    }
+public class StudentSpecificationAll implements StudentSpecification, StudentHibernateSpecification {
 
     @Override
     public boolean specified(Student student) {
