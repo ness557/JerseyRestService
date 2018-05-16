@@ -22,4 +22,11 @@ public class StudentSpecificationById implements StudentSpecification, StudentHi
     public Criterion toCriteria() {
         return Restrictions.eq("id", id);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        return  (obj instanceof StudentSpecificationById && ((StudentSpecificationById) obj).id == this.id);
+
+    }
 }
